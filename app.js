@@ -1,9 +1,14 @@
 const express = require('express')
-const app = express()
+const app = express();
+const morgan = require("morgan");
 
+ // bring in routes
+ const {getPosts} = require('./routes/post')
 
-app.get("/", (req, res) => {
-    res.send("hello wowrd from node js")
-});
+ // middleware
+ app.use(morgan("dev"))
 
-app.listen(8000)
+app.get("/", getPosts);
+
+const port = 8080
+app.listen(port, () => {console.log(`The Node API is listening in Server ${port}`)})
