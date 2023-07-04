@@ -1,8 +1,10 @@
 const express = require('express')
 const app = express();
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const morgan = require("morgan");
 const dotenv = require('dotenv');
+const expressValidator = require('express-validator')
 dotenv.config();
 
 // db
@@ -22,7 +24,8 @@ mongoose.connection.on("error", err => {
 
  // middleware
  app.use(morgan("dev"))
-
+ app.use(bodyParser.json())
+app.use(expressValidator())
 app.use("/", postRoutes);
 
 const port = 8080
